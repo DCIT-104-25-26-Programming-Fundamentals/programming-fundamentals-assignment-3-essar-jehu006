@@ -75,3 +75,101 @@
 // =============================================================================
 
 
+const readlineSync = require('readline-sync');
+
+
+function add(a, b) {
+    return a + b;
+}
+
+function subtract(a, b) {
+    return a - b;
+}
+
+function multiply(a, b) {
+    return a * b;
+}
+
+function divide(a, b) {
+    if (b === 0) {
+        return 'Error: Cannot divide by zero.';
+    }
+    return (a / b).toFixed(2);
+}
+
+function modulus(a, b) {
+    if (b === 0) {
+        return 'Error: Cannot divide by zero.';
+    }
+    return a % b;
+}
+
+function exponentiate(a, b) {
+    return Math.pow(a, b);
+}
+
+
+function showMenu() {
+    console.log('===================================');
+    console.log('         SIMPLE CALCULATOR         ');
+    console.log('===================================');
+    console.log('1. Addition');
+    console.log('2. Subtraction');
+    console.log('3. Multiplication');
+    console.log('4. Division');
+    console.log('5. Modulus');
+    console.log('6. Exponentiation');
+    console.log('7. Quit');
+}
+
+
+function main() {
+    let running = true;
+
+    while (running) {
+        showMenu();
+        let choice = readlineSync.question('Select an operation (1-7): ');
+
+        if (choice === '7') {
+            console.log('Goodbye!');
+            running = false;
+            break;
+        }
+
+        if (['1', '2', '3', '4', '5', '6'].includes(choice)) {
+            let num1 = readlineSync.questionFloat('Enter first number : ');
+            let num2 = readlineSync.questionFloat('Enter second number: ');
+
+            if (choice === '1') {
+                console.log(`Result: ${num1} + ${num2} = ${add(num1, num2)}`);
+            } else if (choice === '2') {
+                console.log(`Result: ${num1} - ${num2} = ${subtract(num1, num2)}`);
+            } else if (choice === '3') {
+                console.log(`Result: ${num1} * ${num2} = ${multiply(num1, num2)}`);
+            } else if (choice === '4') {
+                let res = divide(num1, num2);
+                if (typeof res === 'string') {
+                    console.log(res);
+                } else {
+                    console.log(`Result: ${num1} / ${num2} = ${res}`);
+                }
+            } else if (choice === '5') {
+                let res = modulus(num1, num2);
+                if (typeof res === 'string') {
+                    console.log(res);
+                } else {
+                    console.log(`Result: ${num1} % ${num2} = ${res}`);
+                }
+            } else if (choice === '6') {
+                console.log(`Result: ${num1} ** ${num2} = ${exponentiate(num1, num2)}`);
+            }
+        } else {
+            console.log('Invalid choice. Please select a number between 1 and 7.');
+        }
+
+        console.log(''); 
+    }
+}
+
+
+main();
